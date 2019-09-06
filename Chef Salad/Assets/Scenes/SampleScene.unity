@@ -1275,6 +1275,7 @@ GameObject:
   m_Component:
   - component: {fileID: 968754329}
   - component: {fileID: 968754330}
+  - component: {fileID: 968754331}
   m_Layer: 0
   m_Name: Stock A
   m_TagString: Untagged
@@ -1310,6 +1311,20 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 2.7340202, y: 1.9623413, z: 1.9079332}
   m_Center: {x: 0.43480587, y: 0.48117065, z: -1.4581304}
+--- !u!114 &968754331
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 968754328}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55ae4457c77f658418480c4d1e8d7298, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_VegetableState: 0
+  m_VegetableType: 0
 --- !u!1 &979916507
 GameObject:
   m_ObjectHideFlags: 0
