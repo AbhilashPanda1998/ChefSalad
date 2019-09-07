@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
@@ -15,6 +16,8 @@ public class PlayerController : MonoBehaviour
     private PlayerIndex m_PlayerIndex;
     [SerializeField]
     private float m_Speed;
+    [SerializeField]
+    private Text m_TextStatus;
     private List<Vegetable.VegetableType> m_OrderOfColection = new List<Vegetable.VegetableType>();
     public static Action<PlayerController, PlayerIndex> TriggerInput;
 
@@ -26,6 +29,11 @@ public class PlayerController : MonoBehaviour
     public List<Vegetable.VegetableType> OrderOfCollection
     {
         get { return m_OrderOfColection; }
+    }
+
+    public Text TextStatus
+    {
+        get { return m_TextStatus; }
     }
 
     void Update()

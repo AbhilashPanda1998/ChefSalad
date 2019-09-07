@@ -28,7 +28,8 @@ public class Vegetable : MonoBehaviour
     private STATE m_VegetableState;
     [SerializeField]
     private VegetableType m_VegetableType;
-    private PlayerController.PlayerIndex m_OwnerPlayer;
+    private PlayerController.PlayerIndex m_OwnerPlayerIndex;
+    private PlayerController m_OwnerPlayerController;
     private ChoppingBoard m_ChoppingBoardOwner;
     private List<PlayerController.PlayerIndex> m_PlayerInZone = new List<PlayerController.PlayerIndex>();
     private void Start()
@@ -47,6 +48,7 @@ public class Vegetable : MonoBehaviour
                 if (playerController.OrderOfCollection.Count == 2)
                     return;
                 playerController.OrderOfCollection.Add(m_VegetableType);
+                m_OwnerPlayerController.TextStatus.text = "Picked " + m_VegetableType.ToString();
                 m_VegetableState = STATE.PICKED;
                 this.transform.SetParent(playerController.transform);
                 break;
@@ -54,13 +56,19 @@ public class Vegetable : MonoBehaviour
                 if (playerController.OrderOfCollection[0] == m_VegetableType)
                 {
                     GetComponent<Collider>().enabled = false;
-                    playerController.OrderOfCollection.RemoveAt(0);
                     this.transform.SetParent(m_ChoppingBoardOwner.transform);
+                    this.transform.localPosition = new Vector3(UnityEngine.Random.Range(-0.2f,0.2f), 0, UnityEngine.Random.Range(-0.2f, 0.2f));
+                    m_OwnerPlayerController.TextStatus.text = "Placed " + m_VegetableType.ToString();
                     m_VegetableState = STATE.BEINGCHOPPED;
                 }
                 break;
             case STATE.BEINGCHOPPED:
-                m_ChoppingBoardOwner.m_IsBeingChopped = true;
+                if (!m_ChoppingBoardOwner.m_IsBeingChopped && m_ChoppingBoardOwner.m_IsPlayerInArea)
+                {
+                    m_ChoppingBoardOwner.CurrentVegetableType = m_VegetableType;
+                    m_ChoppingBoardOwner.m_IsBeingChopped = true;
+                    m_VegetableState = STATE.CHOPPED;
+                }
                 break;
             case STATE.CHOPPED:
                 break;
@@ -75,13 +83,14 @@ public class Vegetable : MonoBehaviour
         if (other.GetComponent<PlayerController>())
         {
             m_PlayerInZone.Add(other.GetComponent<PlayerController>().PlayerIndexValue);
-            m_OwnerPlayer = other.GetComponent<PlayerController>().PlayerIndexValue;
+            m_OwnerPlayerController = other.GetComponent<PlayerController>();
+            m_OwnerPlayerIndex = other.GetComponent<PlayerController>().PlayerIndexValue;
         }
         if (other.GetComponent<ChoppingBoard>())
         {
             m_ChoppingBoardOwner = other.GetComponent<ChoppingBoard>();
-            if (!m_PlayerInZone.Contains(m_OwnerPlayer))
-                m_PlayerInZone.Add(m_OwnerPlayer);
+            if (!m_PlayerInZone.Contains(m_OwnerPlayerIndex))
+                m_PlayerInZone.Add(m_OwnerPlayerIndex);
         }
     }
 
@@ -93,7 +102,7 @@ public class Vegetable : MonoBehaviour
         }
         if (other.GetComponent<ChoppingBoard>())
         {
-            m_PlayerInZone.Remove(other.GetComponent<PlayerController>().PlayerIndexValue);
+            m_PlayerInZone.Remove(m_OwnerPlayerIndex);
         }
     }
 
