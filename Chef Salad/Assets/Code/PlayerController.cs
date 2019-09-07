@@ -15,11 +15,17 @@ public class PlayerController : MonoBehaviour
     private PlayerIndex m_PlayerIndex;
     [SerializeField]
     private float m_Speed;
+    private List<Vegetable.VegetableType> m_OrderOfColection = new List<Vegetable.VegetableType>();
     public static Action<PlayerController, PlayerIndex> TriggerInput;
 
     public PlayerIndex PlayerIndexValue
     {
         get { return m_PlayerIndex; }
+    }
+
+    public List<Vegetable.VegetableType> OrderOfCollection
+    {
+        get { return m_OrderOfColection; }
     }
 
     void Update()
