@@ -10,6 +10,8 @@ public class ChoppingBoard : MonoBehaviour
     private Vegetable.VegetableType m_CurrentVegetableType;
     [SerializeField]
     private Slider m_Slider;
+    [SerializeField]
+    private GameObject m_Plate;
     private float m_CurrentLerpTime;
 
     public Slider Slider
@@ -21,6 +23,11 @@ public class ChoppingBoard : MonoBehaviour
     {
         get {return m_CurrentVegetableType; }
         set { m_CurrentVegetableType = value; }
+    }
+
+    public GameObject Plate
+    {
+        get { return m_Plate; }
     }
 
     void Start()
@@ -39,7 +46,6 @@ public class ChoppingBoard : MonoBehaviour
                 m_Slider.value = 0;
                 m_IsBeingChopped = false;
                 m_PlayerController.TextStatus.text = "Chopped " + m_CurrentVegetableType.ToString();
-                m_PlayerController.OrderOfCollection.RemoveAt(0);
             }
         }
     }

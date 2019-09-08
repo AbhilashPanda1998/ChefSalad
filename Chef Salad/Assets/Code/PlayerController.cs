@@ -64,4 +64,9 @@ public class PlayerController : MonoBehaviour
                 break;
         }
     }
+
+    public void ChangeSpeed(float speed)
+    {
+        m_Speed = speed;
+    }
 }

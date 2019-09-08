@@ -86,8 +86,9 @@ GameObject:
   - component: {fileID: 4970183787960254578}
   - component: {fileID: 4970183787960254582}
   - component: {fileID: 4970183787960254583}
-  - component: {fileID: 4970183787960254580}
   - component: {fileID: 4970183787960254581}
+  - component: {fileID: 1853664296}
+  - component: {fileID: 1853664299}
   m_Layer: 0
   m_Name: Customer1
   m_TagString: Untagged
@@ -155,20 +156,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!136 &4970183787960254580
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4970183787960254579}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.5
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &4970183787960254581
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -182,6 +169,31 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_ListOfVegetables: 000000000100000002000000030000000400000005000000
+--- !u!65 &1853664296
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4970183787960254579}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 2.0413084, y: 2, z: 3.2703476}
+  m_Center: {x: 0.014997768, y: -0.0000014355933, z: -2.2273471}
+--- !u!114 &1853664299
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4970183787960254579}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f97a8c119231c5f4281f2d8cda74eb13, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6612306172275433792
 GameObject:
   m_ObjectHideFlags: 0
