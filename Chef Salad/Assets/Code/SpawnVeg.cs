@@ -19,14 +19,25 @@ public class SpawnVeg : MonoBehaviour
         Vegetable.SpawnVegtable -= SpawnVegAtLocation;
     }
 
-    private void SpawnVegAtLocation(GameObject Vegetable, Vector3 Position )
+    private void SpawnVegAtLocation(GameObject OriginalVegetable, Vector3 Position )
     {
-        StartCoroutine(MyCoroutine(m_WaitTime, Vegetable,Position));
+        StartCoroutine(SpawnVegCouroutine(m_WaitTime, OriginalVegetable, Position));
     }
 
-    IEnumerator MyCoroutine(float time,GameObject Vegetable, Vector3 Position)
-    {
+    IEnumerator SpawnVegCouroutine(float time,GameObject OriginalVegetable, Vector3 Position)
+    { 
         yield return new WaitForSeconds(m_WaitTime);
-        GameObject veg = Instantiate(Vegetable, Position, Vegetable.transform.rotation, m_ParentTransform);
+        GameObject cloneVegetable = Instantiate(OriginalVegetable);
+        cloneVegetable.GetComponent<Vegetable>().VegetableState = Vegetable.STATE.IDLE;
+        cloneVegetable.transform.SetParent(m_ParentTransform);
+        cloneVegetable.transform.position = Position;
+        cloneVegetable.transform.rotation = Quaternion.identity;
+        cloneVegetable.transform.localScale = new Vector3(1, 1, 1);
+        cloneVegetable.name = OriginalVegetable.GetComponent<Vegetable>().VegetanbleType.ToString();
+        cloneVegetable.layer = 0;
+        cloneVegetable.GetComponent<Collider>().enabled = true;
+        cloneVegetable.GetComponent<Vegetable>().VegetanbleType = OriginalVegetable.GetComponent<Vegetable>().VegetanbleType;
+        
+
     }
 }

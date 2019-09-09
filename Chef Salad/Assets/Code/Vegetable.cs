@@ -34,8 +34,22 @@ public class Vegetable : MonoBehaviour
     private PlayerController m_OwnerPlayerController;
     private ChoppingBoard m_ChoppingBoardOwner;
     private List<PlayerController.PlayerIndex> m_PlayerInZone = new List<PlayerController.PlayerIndex>();
-    public static Action<VegetableType> AddvegetableToSalad;
+    public static Action<VegetableType, ChoppingBoard.ChoppingBoardType> AddvegetableToSalad;
     public static Action<GameObject, Vector3> SpawnVegtable;
+
+    public VegetableType VegetanbleType
+    {
+        get { return m_VegetableType; }
+        set { m_VegetableType = value; }
+    }
+
+    public STATE VegetableState
+    {
+        get { return m_VegetableState; }
+        set { m_VegetableState = value; }
+    }
+
+
     private void Start()
     {
         PlayerController.TriggerInput += SubscribeInput;
@@ -50,7 +64,7 @@ public class Vegetable : MonoBehaviour
         switch (m_VegetableState)
         {
             case STATE.IDLE:
-                if (playerController.OrderOfCollection.Count == 2)
+                if (playerController.OrderOfCollection.Count == 2 || playerController.OrderOfCollection.Contains(m_VegetableType))
                     return;
                 if (SpawnVegtable != null)
                     SpawnVegtable(this.gameObject, m_OriginalPosition);
@@ -88,7 +102,7 @@ public class Vegetable : MonoBehaviour
                     this.transform.localScale = new Vector3(.5f, .5f, .5f);
                     m_OwnerPlayerController.TextStatus.text = m_VegetableType.ToString() + " Placed On Plate";
                     if (AddvegetableToSalad != null)
-                        AddvegetableToSalad(m_VegetableType);
+                        AddvegetableToSalad(m_VegetableType, m_ChoppingBoardOwner.ChoppingBoardTypeEnum);
                     m_OwnerPlayerController.OrderOfCollection.RemoveAt(0);
                     m_VegetableState = STATE.READY;
                 }

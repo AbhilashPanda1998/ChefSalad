@@ -4,10 +4,19 @@ using UnityEngine;
 using UnityEngine.UI;
 public class ChoppingBoard : MonoBehaviour
 {
+    public enum ChoppingBoardType
+    {
+        NONE,
+        ChoppingBoard_A,
+        ChoppingBoard_B
+    }
+
     public bool m_IsBeingChopped;
     public bool m_IsPlayerInArea;
     private PlayerController m_PlayerController;
     private Vegetable.VegetableType m_CurrentVegetableType;
+    [SerializeField]
+    private ChoppingBoardType m_ChoppingBoardType;
     [SerializeField]
     private Slider m_Slider;
     [SerializeField]
@@ -19,6 +28,11 @@ public class ChoppingBoard : MonoBehaviour
         get { return m_Slider; }
     }
 
+    public ChoppingBoardType ChoppingBoardTypeEnum
+    {
+        get { return m_ChoppingBoardType; }
+    }
+
     public Vegetable.VegetableType CurrentVegetableType
     {
         get {return m_CurrentVegetableType; }
@@ -28,6 +42,7 @@ public class ChoppingBoard : MonoBehaviour
     public GameObject Plate
     {
         get { return m_Plate; }
+        set { m_Plate = value; }
     }
 
     void Start()

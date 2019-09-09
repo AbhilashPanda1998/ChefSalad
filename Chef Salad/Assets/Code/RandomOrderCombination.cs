@@ -19,11 +19,6 @@ public class RandomOrderCombination : MonoBehaviour {
         GetComponentInChildren<Text>().text = string.Join("," , m_CustomerOrderCombination);
     }
 
-    private void Update()
-    {
-
-    }
-
     private void AddVegetables()
     {
         int random = Random.Range(0, m_ListOfVegetables.Count);

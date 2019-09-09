@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour
 {
     public enum PlayerIndex
     {
+        NONE,
         PLAYER1,
         PLAYER2
     }
