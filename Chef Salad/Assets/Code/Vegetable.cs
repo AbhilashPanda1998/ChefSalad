@@ -29,14 +29,17 @@ public class Vegetable : MonoBehaviour
     private STATE m_VegetableState;
     [SerializeField]
     private VegetableType m_VegetableType;
+    private Vector3 m_OriginalPosition;
     private PlayerController.PlayerIndex m_OwnerPlayerIndex;
     private PlayerController m_OwnerPlayerController;
     private ChoppingBoard m_ChoppingBoardOwner;
     private List<PlayerController.PlayerIndex> m_PlayerInZone = new List<PlayerController.PlayerIndex>();
     public static Action<VegetableType> AddvegetableToSalad;
+    public static Action<GameObject, Vector3> SpawnVegtable;
     private void Start()
     {
         PlayerController.TriggerInput += SubscribeInput;
+        m_OriginalPosition = transform.position;
     }
 
     private void SubscribeInput(PlayerController playerController, PlayerController.PlayerIndex playerIndex)
@@ -49,6 +52,8 @@ public class Vegetable : MonoBehaviour
             case STATE.IDLE:
                 if (playerController.OrderOfCollection.Count == 2)
                     return;
+                if (SpawnVegtable != null)
+                    SpawnVegtable(this.gameObject, m_OriginalPosition);
                 gameObject.layer = m_OwnerPlayerController.gameObject.layer;
                 playerController.OrderOfCollection.Add(m_VegetableType);
                 m_OwnerPlayerController.TextStatus.text = "Picked " + m_VegetableType.ToString();

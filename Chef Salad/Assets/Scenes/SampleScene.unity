@@ -4936,19 +4936,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c799e93ef61cc54c996f7240bedff76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Item:
-  - Veg: {fileID: 1711899637}
-    Position: {x: 0, y: 0, z: 0}
-  - Veg: {fileID: 341874115}
-    Position: {x: 0, y: 0, z: 0}
-  - Veg: {fileID: 22887459}
-    Position: {x: 0, y: 0, z: 0}
-  - Veg: {fileID: 144083074}
-    Position: {x: 0, y: 0, z: 0}
-  - Veg: {fileID: 475380104}
-    Position: {x: 0, y: 0, z: 0}
-  - Veg: {fileID: 1279345068}
-    Position: {x: 0, y: 0, z: 0}
+  m_WaitTime: 2
 --- !u!1 &2138410629
 GameObject:
   m_ObjectHideFlags: 0

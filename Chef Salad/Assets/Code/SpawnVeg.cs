@@ -4,44 +4,29 @@ using UnityEngine;
 
 public class SpawnVeg : MonoBehaviour
 {
-    [System.Serializable]
-    public struct VegItems
-    {
-        public GameObject Veg;
-        public Vector3 Position;
-    }
-
     [SerializeField]
-    private List<VegItems> m_Item;
-    private List<VegItems> m_Temp;
+    private float m_WaitTime;
+    private Transform m_ParentTransform;
 
     private void Start()
     {
-        for (int i = 0; i < m_Item.Count; i++)
-        {
-            var v = m_Item[i];
-            v.Position = v.Veg.transform.localPosition;
-            m_Item[i] = v;
-        }
-        m_Temp = m_Item;
+        m_ParentTransform = transform;
+        Vegetable.SpawnVegtable += SpawnVegAtLocation;
     }
 
-    private void Update()
+    private void OnDestroy()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-           
-        }
+        Vegetable.SpawnVegtable -= SpawnVegAtLocation;
     }
 
-    void Check()
+    private void SpawnVegAtLocation(GameObject Vegetable, Vector3 Position )
     {
-        for (int n = 0; n < m_Temp.Count; n++)
-        {
-            if (!m_Item.Contains(m_Temp[n]))
-            {
-                Debug.Log(m_Temp[n].Veg.name);
-            }
-        }
+        StartCoroutine(MyCoroutine(m_WaitTime, Vegetable,Position));
+    }
+
+    IEnumerator MyCoroutine(float time,GameObject Vegetable, Vector3 Position)
+    {
+        yield return new WaitForSeconds(m_WaitTime);
+        GameObject veg = Instantiate(Vegetable, Position, Vegetable.transform.rotation, m_ParentTransform);
     }
 }
