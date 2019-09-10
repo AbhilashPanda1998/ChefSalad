@@ -19,6 +19,9 @@ public class PlayerController : MonoBehaviour
     private float m_Speed;
     [SerializeField]
     private Text m_TextStatus;
+    [SerializeField]
+    private Text m_PlayerScore;
+    private float m_TotalScore;
     private List<Vegetable.VegetableType> m_OrderOfColection = new List<Vegetable.VegetableType>();
     public static Action<PlayerController, PlayerIndex> TriggerInput;
 
@@ -37,19 +40,25 @@ public class PlayerController : MonoBehaviour
         get { return m_TextStatus; }
     }
 
+    private void Start()
+    {
+        m_TotalScore = 0;
+    }
+
     void Update()
     {
         switch (m_PlayerIndex)
         {
             case PlayerIndex.PLAYER1:
 
-                Vector3 move = new Vector3(Input.GetAxis("Horizontal"),0, Input.GetAxis("Vertical"));
+                Vector3 move = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
                 transform.position += move * m_Speed * Time.deltaTime;
                 if (Input.GetKeyDown(KeyCode.LeftControl))
                 {
                     if (TriggerInput != null)
-                        TriggerInput(this,m_PlayerIndex);
+                        TriggerInput(this, m_PlayerIndex);
                 }
+                
                 break;
 
             case PlayerIndex.PLAYER2:
@@ -58,7 +67,7 @@ public class PlayerController : MonoBehaviour
                 if (Input.GetKeyDown(KeyCode.RightControl))
                 {
                     if (TriggerInput != null)
-                        TriggerInput(this,m_PlayerIndex);
+                        TriggerInput(this, m_PlayerIndex);
                 }
                 break;
             default:
@@ -69,5 +78,18 @@ public class PlayerController : MonoBehaviour
     public void ChangeSpeed(float speed)
     {
         m_Speed = speed;
+    }
+
+    public void UpdateScoreForPlayer(float value)
+    {
+        m_TotalScore += value;
+        m_PlayerScore.text = m_TotalScore.ToString();
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        IOnPickedUp pickedUp = other.GetComponent<IOnPickedUp>();
+        if (pickedUp != null)
+            pickedUp.OnPickedUp(this);
     }
 }

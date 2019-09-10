@@ -13,21 +13,27 @@ public class RandomOrderCombination : MonoBehaviour {
         get { return m_CustomerOrderCombination; }
     }
 
-    private void Start()
+    private void OnEnable()
     {
         AddVegetables();
-        GetComponentInChildren<Text>().text = string.Join("," , m_CustomerOrderCombination);
     }
 
-    private void AddVegetables()
+    public void AddVegetables()
     {
+        int maxNoOfVegetable = Random.Range(1, 4);
         int random = Random.Range(0, m_ListOfVegetables.Count);
         if(!m_CustomerOrderCombination.Contains(m_ListOfVegetables[random]))
             m_CustomerOrderCombination.Add(m_ListOfVegetables[random]);
 
-        if (m_CustomerOrderCombination.Count < 3)
+        if (m_CustomerOrderCombination.Count < maxNoOfVegetable)
             AddVegetables();
         else
-            return;
+            GetComponentInChildren<Text>().text = string.Join(",", m_CustomerOrderCombination);
+        return;
+    }
+
+    public void ResetVegetables()
+    {
+        m_CustomerOrderCombination.Clear();
     }
 }

@@ -96,7 +96,7 @@ public class Vegetable : MonoBehaviour
             case STATE.CHOPPED:
                 if (!m_ChoppingBoardOwner.m_IsBeingChopped && m_ChoppingBoardOwner.m_IsPlayerInArea)
                 {
-                    m_OwnerPlayerController.ChangeSpeed(4);
+                    m_OwnerPlayerController.ChangeSpeed(10);
                     this.transform.SetParent(m_ChoppingBoardOwner.Plate.transform);
                     this.transform.localPosition = new Vector3(UnityEngine.Random.Range(-0.027f, 0.027f), 19f, UnityEngine.Random.Range(-0.16f, 0.2f));
                     this.transform.localScale = new Vector3(.5f, .5f, .5f);

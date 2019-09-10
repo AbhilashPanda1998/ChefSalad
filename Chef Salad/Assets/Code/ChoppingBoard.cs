@@ -21,6 +21,8 @@ public class ChoppingBoard : MonoBehaviour
     private Slider m_Slider;
     [SerializeField]
     private GameObject m_Plate;
+    [SerializeField]
+    private float m_ChoppingTime;
     private float m_CurrentLerpTime;
 
     public Slider Slider
@@ -54,11 +56,16 @@ public class ChoppingBoard : MonoBehaviour
     {
         if (m_IsBeingChopped)
         {
-            m_Slider.value = Mathf.Lerp(m_Slider.value, 1, Time.deltaTime *1.5f);
-            m_PlayerController.TextStatus.text = "Chopping " + m_CurrentVegetableType.ToString();
-            if (m_Slider.value>=0.9f)
+            if (m_CurrentLerpTime <= m_ChoppingTime)
+            {
+                m_CurrentLerpTime += Time.deltaTime;
+                m_Slider.value = Mathf.Lerp(0, 1, m_CurrentLerpTime / m_ChoppingTime);
+                m_PlayerController.TextStatus.text = "Chopping " + m_CurrentVegetableType.ToString();
+            }
+            if (m_Slider.value>=1f)
             {
                 m_Slider.value = 0;
+                m_CurrentLerpTime = 0;
                 m_IsBeingChopped = false;
                 m_PlayerController.TextStatus.text = "Chopped " + m_CurrentVegetableType.ToString();
             }
