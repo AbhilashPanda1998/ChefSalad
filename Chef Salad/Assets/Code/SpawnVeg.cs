@@ -4,10 +4,13 @@ using UnityEngine;
 
 public class SpawnVeg : MonoBehaviour
 {
+    #region Variables
+    private Transform m_ParentTransform;
     [SerializeField]
     private float m_WaitTime;
-    private Transform m_ParentTransform;
+    #endregion
 
+    #region Unity callbacks
     private void Start()
     {
         m_ParentTransform = transform;
@@ -18,13 +21,15 @@ public class SpawnVeg : MonoBehaviour
     {
         Vegetable.SpawnVegtable -= SpawnVegAtLocation;
     }
+    #endregion
 
+    #region Class Functions
     private void SpawnVegAtLocation(GameObject OriginalVegetable, Vector3 Position )
     {
         StartCoroutine(SpawnVegCouroutine(m_WaitTime, OriginalVegetable, Position));
     }
 
-    IEnumerator SpawnVegCouroutine(float time,GameObject OriginalVegetable, Vector3 Position)
+    IEnumerator SpawnVegCouroutine(float time,GameObject OriginalVegetable, Vector3 Position) //Spawns the clone of that vegetable after some time if it gets picked up.. Then it Resets that veghetable properties
     { 
         yield return new WaitForSeconds(m_WaitTime);
         GameObject cloneVegetable = Instantiate(OriginalVegetable);
@@ -37,7 +42,6 @@ public class SpawnVeg : MonoBehaviour
         cloneVegetable.layer = 0;
         cloneVegetable.GetComponent<Collider>().enabled = true;
         cloneVegetable.GetComponent<Vegetable>().VegetanbleType = OriginalVegetable.GetComponent<Vegetable>().VegetanbleType;
-        
-
     }
+    #endregion
 }

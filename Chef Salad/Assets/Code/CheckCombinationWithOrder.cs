@@ -5,6 +5,7 @@ using System;
 
 public class CheckCombinationWithOrder : MonoBehaviour
 {
+    #region Variables
     private List<PlayerController.PlayerIndex> m_PlayerInZone = new List<PlayerController.PlayerIndex>();
     private PlayerController m_OwnerPlayerController;
     private PlayerController m_AngryPenalizablePlayer;
@@ -12,13 +13,17 @@ public class CheckCombinationWithOrder : MonoBehaviour
     private List<Vegetable.VegetableType> m_PlayerCookedCombination;
     private Customer m_CustomerScript;
     public bool m_IsCorrectCombination;
-    public static Action<Customer> RewardPlayer;
+    public static Action<PlayerController> RewardPlayer;
+    #endregion
 
+    #region Properties
     public PlayerController AngryPenalizablePlayer
     {
         get { return m_AngryPenalizablePlayer; }
     }
+    #endregion
 
+    #region Unity callbacks
     private void Start()
     {
         PlayerController.TriggerInput += MatchCombination;
@@ -45,9 +50,16 @@ public class CheckCombinationWithOrder : MonoBehaviour
         }
     }
 
-    private void MatchCombination(PlayerController playerController, PlayerController.PlayerIndex playerIndex)
+    private void OnDestroy()
     {
-        if (!m_PlayerInZone.Contains(playerIndex))
+        PlayerController.TriggerInput -= MatchCombination;
+    }
+    #endregion
+
+    #region Class Functions
+    private void MatchCombination(PlayerController playerController)          //Check Customer Order Combination with Player Made Combination
+    {
+        if (!m_PlayerInZone.Contains(playerController.PlayerIndexValue))
             return;
         m_IsCorrectCombination = CheckMatch();
         if(m_IsCorrectCombination)
@@ -57,7 +69,7 @@ public class CheckCombinationWithOrder : MonoBehaviour
             if (m_CustomerScript.CurrentTime < checkForQuickDelivery)
             {
                 if (RewardPlayer != null)
-                    RewardPlayer(m_CustomerScript);
+                    RewardPlayer(playerController);
                 ResetCustomerForCorrectOrder(100f);
                 m_PlayerInZone.Clear();
                 m_OwnerPlayerController = null;
@@ -95,12 +107,7 @@ public class CheckCombinationWithOrder : MonoBehaviour
         return true;
     }
 
-    private void OnDestroy()
-    {
-        PlayerController.TriggerInput -= MatchCombination;
-    }
-
-    private void ResetCustomerForCorrectOrder(float Score)
+    private void ResetCustomerForCorrectOrder(float Score)                   //If its a correct order thenn add score to player and bring new customer i.e Reset Customer Demand
     {
         m_CustomerScript.NewCustomerOrder();
         m_OwnerPlayerController.UpdateScoreForPlayer(Score);
@@ -112,4 +119,5 @@ public class CheckCombinationWithOrder : MonoBehaviour
             Destroy(child.gameObject);
         }
     }
+    #endregion
 }

@@ -105,5 +105,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_SpeedBoostTime: 12
-  m_SpeedBoostValue: 10
-  m_NormalSpeed: 8
+  m_SpeedBoostValue: 12
+  m_NormalSpeed: 10

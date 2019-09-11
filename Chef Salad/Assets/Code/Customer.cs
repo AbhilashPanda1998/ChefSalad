@@ -6,14 +6,14 @@ using System;
 
 public class Customer : MonoBehaviour
 {
-    public enum CustomerState
+    public enum CustomerState      //Customer States, they can be angry or normal
     {
         IDLE,
         ANGRY
     }
 
+    #region Variables
     private float m_WaitingTime;
-    private float m_OriginalWaitingTime;
     private float m_Timer;
     private Slider m_Slider;
     public bool m_GotWrongOrder;
@@ -23,7 +23,9 @@ public class Customer : MonoBehaviour
     private CustomerState m_CustomerState;
     [SerializeField]
     private float m_WaitingTimeMultiplier;
+    #endregion
 
+    #region Properties
     public CustomerState CustomerStateEnum
     {
         get {return m_CustomerState; }
@@ -39,7 +41,9 @@ public class Customer : MonoBehaviour
     {
         get { return m_Timer; }
     }
+    #endregion
 
+    #region Unity callbacks
     private void Start()
     {
         m_Slider = GetComponentInChildren<Slider>();
@@ -84,7 +88,9 @@ public class Customer : MonoBehaviour
 
         }
     }
+    #endregion
 
+    #region Class Functions
     public void NewCustomerOrder()
     {
         m_RandomOrderCombination.ResetVegetables();
@@ -92,4 +98,5 @@ public class Customer : MonoBehaviour
         m_Timer = 0;
         m_WaitingTime = (float)m_RandomOrderCombination.CustomerOrderCombination.Count * m_WaitingTimeMultiplier;
     }
+    #endregion
 }

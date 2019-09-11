@@ -13,6 +13,15 @@ public class PlayerController : MonoBehaviour
         PLAYER2
     }
 
+    #region Variables
+    private float m_TotalScore;
+    private List<Vegetable.VegetableType> m_OrderOfColection = new List<Vegetable.VegetableType>();
+    public static Action<PlayerController> TriggerInput;
+    public static Action<PlayerController> CheckTime;
+    [SerializeField]
+    private float m_Timer;
+    [SerializeField]
+    private Text m_TimerText;
     [SerializeField]
     private PlayerIndex m_PlayerIndex;
     [SerializeField]
@@ -21,10 +30,9 @@ public class PlayerController : MonoBehaviour
     private Text m_TextStatus;
     [SerializeField]
     private Text m_PlayerScore;
-    private float m_TotalScore;
-    private List<Vegetable.VegetableType> m_OrderOfColection = new List<Vegetable.VegetableType>();
-    public static Action<PlayerController, PlayerIndex> TriggerInput;
+    #endregion
 
+    #region Properties
     public PlayerIndex PlayerIndexValue
     {
         get { return m_PlayerIndex; }
@@ -40,6 +48,13 @@ public class PlayerController : MonoBehaviour
         get { return m_TextStatus; }
     }
 
+    public float TotalScore
+    {
+        get { return m_TotalScore; }
+    }
+    #endregion
+
+    #region Unity callbacks
     private void Start()
     {
         m_TotalScore = 0;
@@ -47,7 +62,7 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        switch (m_PlayerIndex)
+        switch (m_PlayerIndex)    //Two player playing in Keyboard,(Player 1 - W/A/S/D and action key LeftCtrl)  and (Player 2 - arrow keys and action key RightCtrl)       
         {
             case PlayerIndex.PLAYER1:
 
@@ -56,7 +71,7 @@ public class PlayerController : MonoBehaviour
                 if (Input.GetKeyDown(KeyCode.LeftControl))
                 {
                     if (TriggerInput != null)
-                        TriggerInput(this, m_PlayerIndex);
+                        TriggerInput(this);
                 }
                 
                 break;
@@ -67,23 +82,22 @@ public class PlayerController : MonoBehaviour
                 if (Input.GetKeyDown(KeyCode.RightControl))
                 {
                     if (TriggerInput != null)
-                        TriggerInput(this, m_PlayerIndex);
+                        TriggerInput(this);
                 }
                 break;
             default:
                 break;
         }
-    }
 
-    public void ChangeSpeed(float speed)
-    {
-        m_Speed = speed;
-    }
+        m_Timer -= Time.deltaTime;
+        m_TimerText.text = Mathf.RoundToInt(m_Timer).ToString();
+        if (m_Timer <= 0)
+        {
+            m_TimerText.text = "TimeUp";
+            if (CheckTime != null)
+                CheckTime(this);
+        }
 
-    public void UpdateScoreForPlayer(float value)
-    {
-        m_TotalScore += value;
-        m_PlayerScore.text = m_TotalScore.ToString();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -92,4 +106,23 @@ public class PlayerController : MonoBehaviour
         if (pickedUp != null)
             pickedUp.OnPickedUp(this);
     }
+    #endregion
+
+    #region Class Functions
+    public void ChangeSpeed(float speed)     //To Chnange Player Speed
+    {
+        m_Speed = speed;
+    }
+
+    public void UpdateScoreForPlayer(float value)  //To Update Player Score
+    {
+        m_TotalScore += value;
+        m_PlayerScore.text = m_TotalScore.ToString();
+    }
+
+    public void IncreaseTimerValue(float amount)  // To increase player timer by TimePickUp Pickable object
+    {
+        m_Timer = m_Timer + amount;
+    }
+    #endregion
 }

@@ -5,10 +5,12 @@ using System;
 
 public class TimePickUp : MonoBehaviour, IOnPickedUp
 {
-    public static Action<float> IncreaseWaitingTime;
+    [SerializeField]
+    private float IncreaseTimeAmount;
 
-    public void OnPickedUp(PlayerController playerController)
+    public void OnPickedUp(PlayerController playerController)           //Time Pickable Object function i.e  increase players time by some amount
     {
+        playerController.IncreaseTimerValue(IncreaseTimeAmount);
         Destroy(gameObject);
     }
 }

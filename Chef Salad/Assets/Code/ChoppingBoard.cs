@@ -4,13 +4,15 @@ using UnityEngine;
 using UnityEngine.UI;
 public class ChoppingBoard : MonoBehaviour
 {
-    public enum ChoppingBoardType
+    public enum ChoppingBoardType      // Distinguish Choppingg Board in Scene
     {
         NONE,
         ChoppingBoard_A,
         ChoppingBoard_B
     }
 
+    #region Variables
+    private float m_CurrentLerpTime;
     public bool m_IsBeingChopped;
     public bool m_IsPlayerInArea;
     private PlayerController m_PlayerController;
@@ -23,8 +25,9 @@ public class ChoppingBoard : MonoBehaviour
     private GameObject m_Plate;
     [SerializeField]
     private float m_ChoppingTime;
-    private float m_CurrentLerpTime;
+    #endregion
 
+    #region Properties
     public Slider Slider
     {
         get { return m_Slider; }
@@ -46,20 +49,17 @@ public class ChoppingBoard : MonoBehaviour
         get { return m_Plate; }
         set { m_Plate = value; }
     }
+    #endregion
 
-    void Start()
-    {
-
-    }
-
-    void Update()
+    #region Unity callbacks
+    private void Update()
     {
         if (m_IsBeingChopped)
         {
             if (m_CurrentLerpTime <= m_ChoppingTime)
             {
                 m_CurrentLerpTime += Time.deltaTime;
-                m_Slider.value = Mathf.Lerp(0, 1, m_CurrentLerpTime / m_ChoppingTime);
+                m_Slider.value = Mathf.Lerp(0, 1, m_CurrentLerpTime / m_ChoppingTime);       // Lerp Sllider Value for showing chopping takes time
                 m_PlayerController.TextStatus.text = "Chopping " + m_CurrentVegetableType.ToString();
             }
             if (m_Slider.value>=1f)
@@ -87,4 +87,5 @@ public class ChoppingBoard : MonoBehaviour
             m_IsPlayerInArea = false;
         }
     }
+    #endregion
 }

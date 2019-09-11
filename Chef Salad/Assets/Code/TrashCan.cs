@@ -4,9 +4,12 @@ using UnityEngine;
 
 public class TrashCan : MonoBehaviour
 {
-    private List<PlayerController.PlayerIndex> m_PlayerInZone = new List<PlayerController.PlayerIndex>();
+    #region Variables
+    private List<PlayerController.PlayerIndex> m_PlayerInZone = new List<PlayerController.PlayerIndex>();   // To Check if player is in zone to throw wrong Order or Vegetable
     private PlayerController m_OwnerPlayerController;
+    #endregion
 
+    #region Unity callbacks
     private void Start()
     {
         PlayerController.TriggerInput += ThrowTrash;
@@ -30,9 +33,16 @@ public class TrashCan : MonoBehaviour
         }
     }
 
-    private void ThrowTrash(PlayerController playerController, PlayerController.PlayerIndex playerIndex)
+    private void OnDestroy()
     {
-        if (!m_PlayerInZone.Contains(playerIndex))
+        PlayerController.TriggerInput -= ThrowTrash;
+    }
+    #endregion
+
+    #region Class Function
+    private void ThrowTrash(PlayerController playerController)
+    {
+        if (!m_PlayerInZone.Contains(playerController.PlayerIndexValue))
             return;
         if(playerController.transform.childCount!=0)
         {
@@ -43,5 +53,5 @@ public class TrashCan : MonoBehaviour
             }
         }
     }
-
+    #endregion
 }

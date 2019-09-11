@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ScorePickup : MonoBehaviour, IOnPickedUp
 {
-    public void OnPickedUp(PlayerController playerController)
+    public void OnPickedUp(PlayerController playerController)   //Score Pickable object function
     {
         playerController.UpdateScoreForPlayer(50);
         Destroy(gameObject);
