@@ -462,10 +462,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b540da0c59bea5e40aa705f0e59d6742, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Timer: 40
+  m_StartingScore: 50
+  m_Timer: 200
   m_TimerText: {fileID: 2103863391}
   m_PlayerIndex: 2
-  m_Speed: 10
+  m_Speed: 8
   m_TextStatus: {fileID: 399895942}
   m_PlayerScore: {fileID: 749659432}
 --- !u!136 &105342873
@@ -1371,6 +1372,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f97a8c119231c5f4281f2d8cda74eb13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_WrongOrderScore: 0
+  m_CorrectOrderScore: 0
+  m_QuickDeliveryRewardAmount: 0
   m_IsCorrectCombination: 0
 --- !u!1 &541179233
 GameObject:
@@ -1421,10 +1425,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b540da0c59bea5e40aa705f0e59d6742, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Timer: 40
+  m_StartingScore: 50
+  m_Timer: 200
   m_TimerText: {fileID: 2061318702}
   m_PlayerIndex: 1
-  m_Speed: 10
+  m_Speed: 8
   m_TextStatus: {fileID: 121887825}
   m_PlayerScore: {fileID: 318316116}
 --- !u!136 &541179236
@@ -3350,6 +3355,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Reward:
   - {fileID: 7243712369070312274, guid: ad7bc21c517a19a4389f0e8ccbe46a3c, type: 3}
+  - {fileID: 6436425495582678964, guid: 33ec3ec0dfa9609489eae3569a88510c, type: 3}
+  - {fileID: 7575256261633546687, guid: 5d5a0bd34d5879e4d8117cf71289ac16, type: 3}
 --- !u!4 &1296054180
 Transform:
   m_ObjectHideFlags: 0

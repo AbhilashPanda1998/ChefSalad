@@ -14,6 +14,8 @@ public class PlayerController : MonoBehaviour
     }
 
     #region Variables
+    [SerializeField]
+    private float m_StartingScore;
     private float m_TotalScore;
     private List<Vegetable.VegetableType> m_OrderOfColection = new List<Vegetable.VegetableType>();
     public static Action<PlayerController> TriggerInput;
@@ -57,7 +59,8 @@ public class PlayerController : MonoBehaviour
     #region Unity callbacks
     private void Start()
     {
-        m_TotalScore = 0;
+        m_TotalScore = m_StartingScore;
+        m_PlayerScore.text = m_TotalScore.ToString();
     }
 
     void Update()

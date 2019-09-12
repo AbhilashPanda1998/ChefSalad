@@ -418,7 +418,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_GotWrongOrder: 0
   m_CustomerState: 0
-  m_WaitingTimeMultiplier: 20
+  m_WaitingTimeMultiplier: 15
 --- !u!114 &1853664299
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -431,6 +431,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f97a8c119231c5f4281f2d8cda74eb13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_WrongOrderScore: -10
+  m_CorrectOrderScore: 10
+  m_QuickDeliveryRewardAmount: 30
   m_IsCorrectCombination: 0
 --- !u!1 &5150955538170701934
 GameObject:

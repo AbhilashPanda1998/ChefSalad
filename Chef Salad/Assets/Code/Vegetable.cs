@@ -135,7 +135,7 @@ public class Vegetable : MonoBehaviour
             case STATE.CHOPPED:
                 if (!m_ChoppingBoardOwner.m_IsBeingChopped && m_ChoppingBoardOwner.m_IsPlayerInArea)  //veg can only be kept in plate if it is chopped and player is in the collision area
                 {
-                    m_OwnerPlayerController.ChangeSpeed(10);
+                    m_OwnerPlayerController.ChangeSpeed(8);
                     this.transform.SetParent(m_ChoppingBoardOwner.Plate.transform);
                     this.transform.localPosition = new Vector3(UnityEngine.Random.Range(-0.027f, 0.027f), 19f, UnityEngine.Random.Range(-0.16f, 0.2f));
                     this.transform.localScale = new Vector3(.5f, .5f, .5f);

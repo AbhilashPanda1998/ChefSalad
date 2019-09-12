@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class ScorePickup : MonoBehaviour, IOnPickedUp
 {
+    [SerializeField]
+    private float BonusScoreAmount;
     public void OnPickedUp(PlayerController playerController)   //Score Pickable object function
     {
-        playerController.UpdateScoreForPlayer(50);
+        playerController.UpdateScoreForPlayer(BonusScoreAmount);
         Destroy(gameObject);
     }
 }

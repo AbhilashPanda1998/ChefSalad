@@ -6,6 +6,12 @@ using System;
 public class CheckCombinationWithOrder : MonoBehaviour
 {
     #region Variables
+    [SerializeField]
+    private float m_WrongOrderScore;
+    [SerializeField]
+    private float m_CorrectOrderScore;
+    [SerializeField]
+    private float m_QuickDeliveryRewardAmount;
     private List<PlayerController.PlayerIndex> m_PlayerInZone = new List<PlayerController.PlayerIndex>();
     private PlayerController m_OwnerPlayerController;
     private PlayerController m_AngryPenalizablePlayer;
@@ -70,13 +76,13 @@ public class CheckCombinationWithOrder : MonoBehaviour
             {
                 if (RewardPlayer != null)
                     RewardPlayer(playerController);
-                ResetCustomerForCorrectOrder(100f);
+                ResetCustomerForCorrectOrder(m_QuickDeliveryRewardAmount);
                 m_PlayerInZone.Clear();
                 m_OwnerPlayerController = null;
                 m_IsCorrectCombination = false;
                 return;
             }
-            ResetCustomerForCorrectOrder(10);
+            ResetCustomerForCorrectOrder(m_CorrectOrderScore);
         }
         else
         {
@@ -88,7 +94,7 @@ public class CheckCombinationWithOrder : MonoBehaviour
             {
                 Destroy(child.gameObject);
             }
-            m_OwnerPlayerController.UpdateScoreForPlayer(-10f);
+            m_OwnerPlayerController.UpdateScoreForPlayer(m_WrongOrderScore);
         }
         m_PlayerInZone.Clear();
         m_OwnerPlayerController = null;
