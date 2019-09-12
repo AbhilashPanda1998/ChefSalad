@@ -28,8 +28,10 @@ public class LevelManager : MonoBehaviour
         {
             m_Winner = m_Player1.TotalScore > m_Player2.TotalScore ? m_Player1.PlayerIndexValue : m_Player2.PlayerIndexValue;
             m_GameOver.text = "Game Over.  " + m_Winner.ToString() + " Won. " + "Press E to Restart";
+            Time.timeScale = 0;
             if(Input.GetKeyDown(KeyCode.E))
             {
+                Time.timeScale = 1;
                 SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
             }
         }
